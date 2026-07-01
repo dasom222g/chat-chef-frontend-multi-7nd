@@ -15,6 +15,7 @@ const Info = () => {
   };
 
   const handleNext = () => {
+    // 미션: chat페이지로 이동 구현
     console.log("chat페이지로 이동");
   };
 
