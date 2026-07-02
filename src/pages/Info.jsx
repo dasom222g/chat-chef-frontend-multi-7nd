@@ -9,14 +9,31 @@ const Info = () => {
   // logic
   const history = useNavigate();
 
+  // [
+  //   {
+  //     id,
+  //     label: `ingredient${id}`,
+  //     text: "재료명",
+  //     value: "",
+  //   },
+  //   {
+  //     id,
+  //     label: `ingredient${id}`,
+  //     text: "재료명",
+  //     value: "",
+  //   },
+
+  // ]
+
   // TODO: set함수 추가하기
   const [ingredientList, setIngredientList] = useState([]); // 사용자가 입력할 재료 목록
 
   const addIngredient = () => {
     // 빈데이터로 재료 추가
+    const id = Date.now(); // number
     const newItem = {
-      id: 1,
-      label: `ingredient1`,
+      id,
+      label: `ingredient${id}`,
       text: "재료명",
       value: "",
     };
@@ -24,9 +41,27 @@ const Info = () => {
     setIngredientList((prev) => [...prev, newItem]);
   };
 
+  const handleChange = (data) => {
+    // console.log("data", data);
+    const changeList = ingredientList.map((ingredient) =>
+      ingredient.id === data.id ? data : ingredient,
+    );
+
+    setIngredientList(changeList);
+  };
+
+  const handleRemove = (selectedId) => {
+    // 제거된 재료목록
+    const filteredIngredientList = ingredientList.filter(
+      (ingredient) => ingredient.id !== selectedId,
+    );
+    setIngredientList(filteredIngredientList);
+  };
+
   const handleNext = () => {
     // 미션: chat페이지로 이동 구현
-    history("/chat");
+    console.log("ingredientList", ingredientList);
+    // history("/chat");
   };
 
   // view
@@ -51,7 +86,12 @@ const Info = () => {
             {/* START:input 영역 */}
             <div>
               {ingredientList.map((item) => (
-                <InfoInput key={item.id} content={item} />
+                <InfoInput
+                  key={item.id}
+                  content={item}
+                  onChange={handleChange}
+                  onRemove={handleRemove}
+                />
               ))}
             </div>
             {/* END:input 영역 */}
