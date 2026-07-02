@@ -3,20 +3,30 @@ import PrevButton from "../components/PrevButton";
 import InfoInput from "../components/InfoInput";
 import AddButton from "../components/AddButton";
 import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
 
 const Info = () => {
   // logic
+  const history = useNavigate();
 
   // TODO: set함수 추가하기
-  const [ingredientList] = useState([]); // 사용자가 입력할 재료 목록
+  const [ingredientList, setIngredientList] = useState([]); // 사용자가 입력할 재료 목록
 
   const addIngredient = () => {
-    console.log("재료 추가하기");
+    // 빈데이터로 재료 추가
+    const newItem = {
+      id: 1,
+      label: `ingredient1`,
+      text: "재료명",
+      value: "",
+    };
+
+    setIngredientList((prev) => [...prev, newItem]);
   };
 
   const handleNext = () => {
     // 미션: chat페이지로 이동 구현
-    console.log("chat페이지로 이동");
+    history("/chat");
   };
 
   // view
